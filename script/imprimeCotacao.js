@@ -10,4 +10,4 @@ function imprimeCotacao(nome,valor) {
     } 
 }
 
-export default imprimeCotacao();  
+export default imprimeCotacao;  
