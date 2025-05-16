@@ -1,4 +1,4 @@
-import imprimeCotacao from "./imprimeCotacao.js";
+import selecionaCotacao from "./imprimeCotacao.js";
 const graficoDolar = document.getElementById('graficoDolar');
 
 const graficoParaDolar = new Chart(graficoDolar, {
@@ -35,7 +35,7 @@ workerDolar.postMessage('usd');
 workerDolar.addEventListener("message", event => {
     let tempo = geraHorario();
     let valor = event.data.ask;
-    imprimeCotacao("dolar", valor); 
+    selecionaCotacao("dolar", valor); 
     adicionarDados(graficoParaDolar, tempo, valor);
 })
 
@@ -59,6 +59,30 @@ workerIene.addEventListener("message", event =>{
     let tempo = geraHorario();
     let valor = event.data.ask;
     adicionarDados(graficoParaIene, tempo, valor);
-    imprimeCotacao("iene", valor)
+    selecionaCotacao("iene", valor )
+
+})
+
+const graficoArs = document.getElementById('graficoIene');
+const graficoParaArs = new Chart(graficoArs, {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [{
+            label: 'Iene',
+            data: [],
+            borderWidth: 1
+        }]
+    }
+})
+
+let workerArs = new Worker ('./script/workers/workerArs.js');
+workerIene.postMessage('ars');
+
+workerIene.addEventListener("message", event =>{
+    let tempo = geraHorario();
+    let valor = event.data.ask;
+    adicionarDados(graficoParaArs, tempo, valor);
+    selecionaCotacao("ars", valor )
 
 })
