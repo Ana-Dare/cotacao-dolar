@@ -63,13 +63,13 @@ workerIene.addEventListener("message", event =>{
 
 })
 
-const graficoArs = document.getElementById('graficoIene');
+const graficoArs = document.getElementById('graficoArs');
 const graficoParaArs = new Chart(graficoArs, {
     type: 'line',
     data: {
         labels: [],
         datasets: [{
-            label: 'Iene',
+            label: 'Ars',
             data: [],
             borderWidth: 1
         }]
@@ -77,12 +77,13 @@ const graficoParaArs = new Chart(graficoArs, {
 })
 
 let workerArs = new Worker ('./script/workers/workerArs.js');
-workerIene.postMessage('ars');
+workerArs.postMessage('ars');
 
-workerIene.addEventListener("message", event =>{
+workerArs.addEventListener("message", event =>{
     let tempo = geraHorario();
     let valor = event.data.ask;
     adicionarDados(graficoParaArs, tempo, valor);
     selecionaCotacao("ars", valor )
 
 })
+
